@@ -83,7 +83,7 @@ It provides a modern interface for experimenting with multiple encryption techni
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/encryptx.git
+git clone https://github.com/arshitkataria2/encryptx.git
 ```
 
 ### 2️⃣ Open Project

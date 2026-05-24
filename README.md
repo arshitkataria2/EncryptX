@@ -60,19 +60,19 @@ It provides a modern interface for experimenting with multiple encryption techni
 
 ## 📸 Screenshots
 
-### 🏠 Encrypt Page
+### 🏠 Home
 
 ![Encrypt Page](/Screenshots/1.png)
 
 ---
 
-### ⚙️ Custom Algorithm Builder
+### ⚙️ Algorithms
 
 ![Custom Builder](/Screenshots/2.png)
 
 ---
 
-### 🔓 Decryption Page
+### 🔓 Encryption Page
 
 ![Decrypt Page](/Screenshots/3.png)
 

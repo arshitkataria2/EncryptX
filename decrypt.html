@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EncryptX | Decrypt</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="decrypt">
+  <header class="topbar">
+    <div class="logo">EncryptX</div>
+    <nav>
+      <a href="index.html" data-nav="home" data-tip="Go to the home page.">Home</a>
+      <a href="encrypt.html" data-nav="encrypt" data-tip="Open the encryption page.">Encrypt</a>
+      <a href="decrypt.html" data-nav="decrypt" data-tip="Open the decryption page.">Decrypt</a>
+      <a href="custom.html" data-nav="custom" data-tip="Build your own step-by-step flow.">Custom Algorithm</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <h1>Decrypt Text</h1>
+      <p>Paste the encrypted package or load it from a file, enter the key, enter the passcode, and restore the original text.</p>
+    </section>
+
+    <section class="panel">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="decPkg">Encrypted Package</label>
+          <textarea id="decPkg" placeholder="Paste the downloaded package here..." data-tip="Paste the saved package into this box."></textarea>
+          <div class="error" id="decPkgErr"></div>
+          <div class="btn-row smallgap">
+            <input type="file" id="decPkgFile" accept=".exx,.json,.txt,application/json,text/plain" hidden />
+            <button class="btn mini" type="button" id="loadDecPkgBtn" data-tip="Load a package file from your device.">Load Package File</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="decKey">Key</label>
+          <input id="decKey" type="text" placeholder="Enter the key" data-tip="This must match the key used when the text was encrypted." />
+          <div class="error" id="decKeyErr"></div>
+          <div class="btn-row smallgap">
+            <input type="file" id="decKeyFile" accept=".txt,.key,.json,text/plain,application/json" hidden />
+            <button class="btn mini" type="button" id="loadDecKeyBtn" data-tip="Load a key from a file instead of typing it.">Load Key File</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="decPass">Passcode</label>
+          <input id="decPass" type="password" placeholder="Enter the passcode" data-tip="This extra password must also match before decryption works." />
+          <div class="error" id="decPassErr"></div>
+        </div>
+
+        <div class="field full">
+          <div class="note">Decryption needs both the correct key and the correct passcode.</div>
+        </div>
+
+        <div class="field full">
+          <div class="btn-row">
+            <button class="btn primary" type="button" id="decryptBtn" data-tip="Try to unlock the original text.">Decrypt Now</button>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="decOut">Decrypted Text</label>
+          <textarea id="decOut" readonly placeholder="Decrypted text will appear here..." data-tip="This is the recovered original message."></textarea>
+          <div class="error" id="decOutErr"></div>
+        </div>
+
+        <div class="field full">
+          <div id="decStatus" class="status">Ready to decrypt.</div>
+        </div>
+
+        <div class="field full">
+          <div class="btn-row">
+            <button class="btn" type="button" id="copyDecBtn" data-tip="Copy the decrypted text.">Copy Text</button>
+            <button class="btn ghost" type="button" id="clearDecBtn" data-tip="Clear everything on this page.">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="tooltipBox" class="tooltip-box" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>

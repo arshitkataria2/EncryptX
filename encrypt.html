@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EncryptX | Encrypt</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="encrypt">
+  <header class="topbar">
+    <div class="logo">EncryptX</div>
+    <nav>
+      <a href="index.html" data-nav="home" data-tip="Go to the home page.">Home</a>
+      <a href="encrypt.html" data-nav="encrypt" data-tip="Open the encryption page.">Encrypt</a>
+      <a href="decrypt.html" data-nav="decrypt" data-tip="Open the decryption page.">Decrypt</a>
+      <a href="custom.html" data-nav="custom" data-tip="Build your own step-by-step flow.">Custom Algorithm</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <h1>Encrypt Text</h1>
+      <p>Choose an algorithm, generate a key, set a passcode, then download the encrypted package and the key.</p>
+    </section>
+
+    <section class="panel">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="plainText">Plain Text</label>
+          <textarea id="plainText" placeholder="Type or paste your message here..." data-tip="This is the original message you want to protect."></textarea>
+          <div class="error" id="plainTextErr"></div>
+        </div>
+
+        <div class="field algo-field">
+          <label>Encryption Algorithm</label>
+          <input type="hidden" id="encAlgo" value="caesar" />
+          <div class="algo-picker" id="algoPicker">
+            <button class="algo-trigger" id="algoSelectBtn" type="button" aria-expanded="false" data-tip="Open the algorithm menu and choose how the text will be mixed.">
+              <span id="algoSelectLabel">Caesar Cipher</span>
+              <span class="algo-arrow">▾</span>
+            </button>
+
+            <div class="algo-panel" id="algoMenuPanel">
+              <div class="algo-menu" id="algoMenu" role="listbox" aria-label="Encryption algorithms">
+                <button type="button" class="algo-item" data-value="caesar" data-preview-title="Caesar Cipher" data-preview-text="Shifts letters by a number. Example: A becomes D when the shift is 3.">
+                  <strong>Caesar Cipher</strong>
+                  <span>Moves letters forward or backward.</span>
+                </button>
+
+                <button type="button" class="algo-item" data-value="xor" data-preview-title="XOR Cipher" data-preview-text="Mixes the message with a key so the text looks scrambled until the same key is used again.">
+                  <strong>XOR Cipher</strong>
+                  <span>Scrambles text with a secret key.</span>
+                </button>
+
+                <button type="button" class="algo-item" data-value="reverse" data-preview-title="Reverse Text" data-preview-text="Flips the whole message backward. It hides the reading order, but it is still a simple trick.">
+                  <strong>Reverse Text</strong>
+                  <span>Reads the message backward.</span>
+                </button>
+
+                <button type="button" class="algo-item" data-value="base64" data-preview-title="Base64 Layer" data-preview-text="Turns text into a coded-looking string. It changes the look of the text, but it is not real security by itself.">
+                  <strong>Base64 Layer</strong>
+                  <span>Changes text into coded characters.</span>
+                </button>
+
+                <button type="button" class="algo-item" data-value="rot13" data-preview-title="ROT13" data-preview-text="Moves every letter 13 places in the alphabet. The same method unlocks it again.">
+                  <strong>ROT13</strong>
+                  <span>Simple letter rotation.</span>
+                </button>
+
+                <button type="button" class="algo-item" data-value="atbash" data-preview-title="Atbash Cipher" data-preview-text="Replaces each letter with the opposite letter in the alphabet, like A ↔ Z.">
+                  <strong>Atbash Cipher</strong>
+                  <span>Uses opposite alphabet letters.</span>
+                </button>
+
+                <button type="button" class="algo-item" data-value="vigenere" data-preview-title="Vigenere Cipher" data-preview-text="Uses a keyword to shift letters in a repeating pattern, so the same letter can change in different places.">
+                  <strong>Vigenere Cipher</strong>
+                  <span>Uses a keyword for shifting.</span>
+                </button>
+              </div>
+
+              <div class="algo-preview">
+                <div class="algo-preview-title" id="algoPreviewTitle">Caesar Cipher</div>
+                <div class="algo-preview-text" id="algoPreviewText">Shifts letters by a number. Example: A becomes D when the shift is 3.</div>
+                <div class="algo-preview-note">Hover any item to see its plain-language explanation.</div>
+              </div>
+            </div>
+          </div>
+          <div class="error" id="encAlgoErr"></div>
+        </div>
+
+        <div class="field">
+          <label for="keyLength">Key Length</label>
+          <select id="keyLength" data-tip="Choose how long the generated key should be. Longer keys are harder to guess.">
+            <option value="12">12 characters</option>
+            <option value="16" selected>16 characters</option>
+            <option value="24">24 characters</option>
+            <option value="32">32 characters</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="encKey">Encryption Key</label>
+          <input id="encKey" type="text" placeholder="Generated or typed key" data-tip="This is the secret key used with the chosen algorithm." />
+          <div class="error" id="encKeyErr"></div>
+          <div class="btn-row smallgap">
+            <button class="btn mini" type="button" id="genKeyBtn" data-tip="Make a random key for you.">Generate Key</button>
+            <button class="btn mini" type="button" id="copyKeyBtn" data-tip="Copy the key to your clipboard.">Copy Key</button>
+            <button class="btn mini" type="button" id="downloadKeyBtn" data-tip="Save the key as a file on your device.">Download Key</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="encPass">Passcode</label>
+          <input id="encPass" type="password" placeholder="Set passcode for decryption" data-tip="This extra password is needed to unlock the package later." />
+          <div class="error" id="encPassErr"></div>
+        </div>
+
+        <div class="field">
+          <label>Custom Algorithm</label>
+          <a class="btn ghost fullbtn" href="custom.html" data-tip="Open the page where you can build your own multi-step flow.">Open Custom Algorithm Page</a>
+        </div>
+
+        <div class="field full">
+          <div class="note">The package does not show the key length. Keep the key private and share it separately.</div>
+        </div>
+
+        <div class="field full">
+          <div class="btn-row">
+            <button class="btn primary" type="button" id="encryptBtn" data-tip="Start encryption and create the package.">Encrypt Now</button>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="encOut">Encrypted Package</label>
+          <textarea id="encOut" readonly placeholder="Encrypted package will appear here..." data-tip="This is the package you can share. It still needs the key and passcode to open."></textarea>
+          <div class="error" id="encOutErr"></div>
+        </div>
+
+        <div class="field full">
+          <label for="encPkgKey">Encrypted Key</label>
+          <textarea id="encPkgKey" readonly placeholder="Key will appear here..." data-tip="This shows the generated key again so you can copy or download it."></textarea>
+        </div>
+
+        <div class="field full">
+          <div id="encStatus" class="status">Ready to encrypt.</div>
+        </div>
+
+        <div class="field full">
+          <div class="btn-row">
+            <button class="btn" type="button" id="copyPkgBtn" data-tip="Copy the package to your clipboard.">Copy Package</button>
+            <button class="btn" type="button" id="downloadPkgBtn" data-tip="Download the package as a file.">Download Package</button>
+            <button class="btn" type="button" id="copyEncKeyBtn" data-tip="Copy the key again.">Copy Key</button>
+            <button class="btn" type="button" id="downloadEncKeyBtn" data-tip="Download the key as a file.">Download Key</button>
+            <button class="btn ghost" type="button" id="clearEncBtn" data-tip="Clear everything on this page.">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="tooltipBox" class="tooltip-box" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>

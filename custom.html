@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EncryptX | Custom Algorithm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="custom">
+  <header class="topbar">
+    <div class="logo">EncryptX</div>
+    <nav>
+      <a href="index.html" data-nav="home" data-tip="Go to the home page.">Home</a>
+      <a href="encrypt.html" data-nav="encrypt" data-tip="Open the encryption page.">Encrypt</a>
+      <a href="decrypt.html" data-nav="decrypt" data-tip="Open the decryption page.">Decrypt</a>
+      <a href="custom.html" data-nav="custom" data-tip="Build your own step-by-step flow.">Custom Algorithm</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <h1>Custom Algorithm Builder</h1>
+      <p>Create your own encryption flow and generate a secure package.</p>
+    </section>
+
+    <section class="panel">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="customText">Plain Text</label>
+          <textarea id="customText" placeholder="Type or paste your message here..." data-tip="This is the text you want to protect with your own steps."></textarea>
+          <div class="error" id="customTextErr"></div>
+        </div>
+
+        <div class="field full">
+          <label>Encryption Algorithm</label>
+          <div id="stepsBox" class="steps"></div>
+          <div class="error" id="stepsErr"></div>
+          <div class="note" id="customSummary">No custom steps saved yet.</div>
+
+          <div class="btn-row smallgap">
+            <button class="btn mini" id="addStepBtn" data-tip="Add another step to the custom flow.">Add Step</button>
+            <button class="btn mini" id="savePresetBtn" data-tip="Download the current step list as a preset file.">Save Preset</button>
+            <button class="btn mini" id="loadPresetBtn" data-tip="Load a saved preset file.">Load Preset</button>
+            <button class="btn ghost mini" id="clearStepsBtn" data-tip="Remove all custom steps.">Clear Steps</button>
+          </div>
+
+          <input type="file" id="loadPresetInput" hidden />
+        </div>
+
+        <div class="field">
+          <label for="customKey">Encryption Key</label>
+          <input id="customKey" placeholder="Generated or typed key" data-tip="This key is stored with the package and checked again when decrypting." />
+          <div class="error" id="customKeyErr"></div>
+          <div class="btn-row smallgap">
+            <button class="btn mini" id="genCustomKeyBtn" data-tip="Make a random custom key.">Generate Key</button>
+            <button class="btn mini" id="copyCustomKeyBtn" data-tip="Copy the custom key.">Copy Key</button>
+            <button class="btn mini" id="downloadCustomKeyBtn" data-tip="Download the custom key as a file.">Download Key</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="customKeyLength">Key Length</label>
+          <select id="customKeyLength" data-tip="Choose how long the custom key should be.">
+            <option value="12">12 characters</option>
+            <option value="16" selected>16 characters</option>
+            <option value="24">24 characters</option>
+            <option value="32">32 characters</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="customPass">Passcode</label>
+          <input id="customPass" type="password" placeholder="Set passcode for decryption" data-tip="This extra password is needed before the package opens.">
+          <div class="error" id="customPassErr"></div>
+        </div>
+
+        <div></div>
+
+        <div class="field full">
+          <div class="btn-row">
+            <button class="btn primary" id="customEncryptBtn" data-tip="Encrypt the text using your custom step list.">Encrypt Now</button>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="customOut">Encrypted Package</label>
+          <textarea id="customOut" readonly placeholder="Encrypted package will appear here..." data-tip="This is the final package created from your custom flow."></textarea>
+        </div>
+
+        <div class="field full">
+          <div id="customStatus" class="status">Ready to encrypt.</div>
+        </div>
+
+        <div class="field full">
+          <div class="btn-row">
+            <button class="btn" id="copyCustomPkgBtn" data-tip="Copy the custom package.">Copy Package</button>
+            <button class="btn" id="downloadCustomPkgBtn" data-tip="Download the custom package.">Download Package</button>
+            <button class="btn" id="copyCustomKeyBtn" data-tip="Copy the custom key.">Copy Key</button>
+            <button class="btn" id="downloadCustomKeyBtn" data-tip="Download the custom key.">Download Key</button>
+            <button class="btn ghost" id="clearCustomBtn" data-tip="Clear the custom form.">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="stepTemplate">
+    <div class="step-row">
+      <div class="algo-picker stepPicker">
+        <button class="algo-trigger stepTrigger" type="button" aria-expanded="false">
+          <span class="stepLabel">Caesar Cipher</span>
+          <span class="algo-arrow">▾</span>
+        </button>
+        <div class="algo-panel stepPanel">
+          <div class="algo-menu stepMenu" role="listbox" aria-label="Custom algorithm steps">
+            <button type="button" class="algo-item step-item" data-value="caesar" data-preview-title="Caesar Cipher" data-preview-text="Shifts letters by a number. Example: A becomes D when the shift is 3.">
+              <strong>Caesar Cipher</strong>
+              <span>Moves letters forward or backward.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="xor" data-preview-title="XOR Cipher" data-preview-text="Mixes the message with a key so the text looks scrambled until the same key is used again.">
+              <strong>XOR Cipher</strong>
+              <span>Scrambles text with a secret key.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="reverse" data-preview-title="Reverse Text" data-preview-text="Flips the whole message backward. It hides the reading order, but it is still a simple trick.">
+              <strong>Reverse Text</strong>
+              <span>Reads the message backward.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="swap" data-preview-title="Swap Case" data-preview-text="Switches uppercase letters to lowercase and lowercase letters to uppercase.">
+              <strong>Swap Case</strong>
+              <span>Flips letter case.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="base64" data-preview-title="Base64 Layer" data-preview-text="Turns text into a coded-looking string. It changes the look of the text, but it is not real security by itself.">
+              <strong>Base64 Layer</strong>
+              <span>Changes text into coded characters.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="rot13" data-preview-title="ROT13" data-preview-text="Moves every letter 13 places in the alphabet. The same method unlocks it again.">
+              <strong>ROT13</strong>
+              <span>Simple letter rotation.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="atbash" data-preview-title="Atbash Cipher" data-preview-text="Replaces each letter with the opposite letter in the alphabet, like A ↔ Z.">
+              <strong>Atbash Cipher</strong>
+              <span>Uses opposite alphabet letters.</span>
+            </button>
+            <button type="button" class="algo-item step-item" data-value="vigenere" data-preview-title="Vigenere Cipher" data-preview-text="Uses a keyword to shift letters in a repeating pattern, so the same letter can change in different places.">
+              <strong>Vigenere Cipher</strong>
+              <span>Uses a keyword for shifting.</span>
+            </button>
+          </div>
+          <div class="algo-preview stepPreview">
+            <div class="algo-preview-title stepPreviewTitle">Caesar Cipher</div>
+            <div class="algo-preview-text stepPreviewText">Shifts letters by a number. Example: A becomes D when the shift is 3.</div>
+            <div class="algo-preview-note">Hover any item to see its plain-language explanation.</div>
+          </div>
+        </div>
+      </div>
+      <div class="stepValueWrap">
+        <label class="stepValueLabel">Shift Value</label>
+        <input class="stepValue" placeholder="Enter a shift number" data-tip="How many letters the text should move forward or backward." title="How many letters the text should move forward or backward." />
+      </div>
+      <button class="btn mini danger removeStep" type="button">Remove</button>
+    </div>
+  </template>
+
+  <div id="tooltipBox" class="tooltip-box" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>

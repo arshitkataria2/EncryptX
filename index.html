@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EncryptX | Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="home">
+  <header class="topbar">
+    <div class="logo">EncryptX</div>
+    <nav>
+      <a href="index.html" data-nav="home" data-tip="Go to the home page.">Home</a>
+      <a href="encrypt.html" data-nav="encrypt" data-tip="Open the encryption page.">Encrypt</a>
+      <a href="decrypt.html" data-nav="decrypt" data-tip="Open the decryption page.">Decrypt</a>
+      <a href="custom.html" data-nav="custom" data-tip="Build your own step-by-step flow.">Custom Algorithm</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-left">
+        <span class="badge">Personal Text Protection</span>
+        <h1>Secure Your Text in Seconds</h1>
+        <p>EncryptX lets you scramble text, keep the key separate, and unlock the original message only with the right package, key, and passcode.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="encrypt.html" data-tip="Go straight to the page where you encrypt text.">Encrypt Text</a>
+          <a class="btn ghost" href="decrypt.html" data-tip="Go to the page where you unlock a saved package.">Decrypt Text</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="glass-card">
+          <h3>What you get</h3>
+          <ul class="list">
+            <li>Hover explanations for each algorithm choice</li>
+            <li>Separate Encrypt and Decrypt pages</li>
+            <li>Download the package and key</li>
+            <li>Custom algorithm builder</li>
+            <li>Passcode-protected decryption</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid3">
+      <article class="card">
+        <h2>Encrypt</h2>
+        <p>Turn plain text into a protected package and save the key separately.</p>
+      </article>
+      <article class="card">
+        <h2>Decrypt</h2>
+        <p>Use the package, key, and passcode together to restore the original text.</p>
+      </article>
+      <article class="card">
+        <h2>Custom</h2>
+        <p>Create your own mixed algorithm with Caesar, XOR, Reverse, Base64, ROT13, Atbash, and Vigenere.</p>
+      </article>
+    </section>
+  </main>
+
+  <div id="tooltipBox" class="tooltip-box" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>
